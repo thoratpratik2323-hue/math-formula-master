@@ -4,24 +4,32 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Formula Master | Ishu's Math Hub</title>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap"
+    <title>Math Formula Master | Target 100/100</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Poppins:wght@500;700&display=swap"
         rel="stylesheet">
+    <!-- MathJax for rendering math formulas beautifully -->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <style>
         :root {
-            --bg: #05080f;
-            --surface: rgba(255, 255, 255, 0.04);
-            --border: rgba(255, 255, 255, 0.08);
+            --bg-color: #0b1120;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --card-bg: #1e293b;
+            --border-light: rgba(255, 255, 255, 0.1);
 
-            --primary: {
-                    {
-                    COLOR
-                }
-            }
+            /* Subject Colors */
+            --calculus: #06b6d4;
+            /* Cyan */
+            --algebra: #a78bfa;
+            /* Purple */
+            --geometry: #f472b6;
+            /* Pink */
+            --trigo: #f59e0b;
+            /* Amber */
 
-            ;
-            --text: #e2e8f0;
-            --muted: #64748b;
+            --glow-spread: 0 0 20px rgba(0, 0, 0, 0.5);
         }
 
         * {
@@ -31,86 +39,470 @@
         }
 
         body {
-            font-family: 'Outfit', sans-serif;
-            background: var(--bg);
-            color: var(--text);
-            min-height: 100vh;
-            padding: 2rem;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            background-image:
+                radial-gradient(circle at top right, rgba(6, 182, 212, 0.1), transparent 40%),
+                radial-gradient(circle at bottom left, rgba(244, 114, 182, 0.1), transparent 40%);
+            background-attachment: fixed;
+            line-height: 1.6;
+            overflow-x: hidden;
         }
 
         .container {
-            text-align: center;
-            background: var(--surface);
-            padding: 3rem;
-            border-radius: 24px;
-            border: 1px solid var(--border);
-            max-width: 600px;
-            width: 100%;
-            box-shadow: 0 0 40px rgba(0, 0, 0, 0.5);
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 2rem;
             position: relative;
-            overflow: hidden;
         }
 
-        .container::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 4px;
-            background: var(--primary);
-        }
-
-        .icon {
-            font-size: 4rem;
-            margin-bottom: 1rem;
-        }
-
-        h1 {
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-            color: #fff;
-        }
-
-        p {
-            color: var(--muted);
-            line-height: 1.6;
-            margin-bottom: 2rem;
-            font-size: 1.1rem;
-        }
-
-        .btn {
-            display: inline-block;
-            padding: 0.8rem 1.5rem;
-            background: rgba(255, 255, 255, 0.1);
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            color: #fff;
+        .btn-back {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.6rem 1.2rem;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border-light);
+            border-radius: 50px;
+            color: var(--text-muted);
             text-decoration: none;
+            font-size: 0.9rem;
             font-weight: 600;
+            margin-bottom: 2rem;
             transition: all 0.3s;
         }
 
-        .btn:hover {
-            background: var(--primary);
-            border-color: var(--primary);
+        .btn-back:hover {
+            background: rgba(255, 255, 255, 0.1);
             color: #fff;
-            transform: translateY(-2px);
+            transform: translateX(-3px);
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 3rem;
+            animation: fadeInDown 1s ease;
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        h1 {
+            font-family: 'Poppins', sans-serif;
+            font-size: clamp(2.5rem, 6vw, 4rem);
+            font-weight: 800;
+            margin-bottom: 1rem;
+            background: linear-gradient(to right, #67e8f9, #c084fc, #f472b6);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            letter-spacing: 1px;
+        }
+
+        /* Section Headings */
+        .section-title {
+            margin: 3rem 0 1.5rem;
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+
+        /* Accordion Structure */
+        .chapter-container {
+            margin-bottom: 1rem;
+            border-radius: 16px;
+            overflow: hidden;
+            background: var(--card-bg);
+            border: 1px solid var(--border-light);
+            box-shadow: var(--glow-spread);
+            transition: transform 0.3s;
+        }
+
+        .chapter-container:hover {
+            transform: scale(1.01);
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .chapter-header {
+            padding: 1.5rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.3rem;
+            font-weight: 600;
+            background: rgba(255, 255, 255, 0.03);
+            user-select: none;
+        }
+
+        .chapter-title {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .icon-box {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            font-size: 1.2rem;
+            color: white;
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .trigo .icon-box {
+            background: var(--trigo);
+            box-shadow: 0 0 15px rgba(245, 158, 11, 0.5);
+        }
+
+        .calculus .icon-box {
+            background: var(--calculus);
+            box-shadow: 0 0 15px rgba(6, 182, 212, 0.5);
+        }
+
+        .algebra .icon-box {
+            background: var(--algebra);
+            box-shadow: 0 0 15px rgba(167, 139, 250, 0.5);
+        }
+
+        .geometry .icon-box {
+            background: var(--geometry);
+            box-shadow: 0 0 15px rgba(244, 114, 182, 0.5);
+        }
+
+        .toggle-icon {
+            font-size: 1.5rem;
+            transition: transform 0.3s;
+        }
+
+        .chapter-container.active .toggle-icon {
+            transform: rotate(180deg);
+        }
+
+        .chapter-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s cubic-bezier(0, 1, 0, 1);
+            background: rgba(0, 0, 0, 0.2);
+        }
+
+        .chapter-container.active .chapter-content {
+            max-height: 5000px;
+            transition: max-height 1.5s ease-in-out;
+        }
+
+        .notes-grid {
+            padding: 2rem;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .formula-card {
+            background: rgba(255, 255, 255, 0.03);
+            border-left: 4px solid var(--text-muted);
+            padding: 1.5rem;
+            border-radius: 0 12px 12px 0;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .trigo .formula-card {
+            border-left-color: var(--trigo);
+        }
+
+        .calculus .formula-card {
+            border-left-color: var(--calculus);
+        }
+
+        .algebra .formula-card {
+            border-left-color: var(--algebra);
+        }
+
+        .geometry .formula-card {
+            border-left-color: var(--geometry);
+        }
+
+        .formula-card h3 {
+            color: white;
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding-bottom: 0.5rem;
+        }
+
+        .math-block {
+            background: rgba(0, 0, 0, 0.4);
+            padding: 1rem;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            overflow-x: auto;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            color: #f8fafc;
+        }
+
+        /* Customize scrollbar for math blocks */
+        .math-block::-webkit-scrollbar {
+            height: 6px;
+        }
+
+        .math-block::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+        }
+
+        .highlight {
+            color: #fbbf24;
+            font-weight: 600;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 4rem;
+            padding: 2rem;
+            border-top: 1px solid var(--border-light);
+            color: var(--text-muted);
+        }
+
+        .mjx-chtml {
+            color: white !important;
+        }
+
+        @media (max-width: 768px) {
+            .notes-grid {
+                grid-template-columns: 1fr;
+                padding: 1rem;
+            }
+
+            h1 {
+                font-size: 2.2rem;
+            }
         }
     </style>
 </head>
 
 <body>
+
     <div class="container">
-        <div class="icon"></div>
-        <h1>Formula Master</h1>
-        <p>All Class 12 Math formulas sorted by chapter.</p>
-        <a href="https://thoratpratik2323-hue.github.io/ishu-math-hub/" class="btn">â† Back to Math Hub</a>
+        <a href="https://thoratpratik2323-hue.github.io/ishu-math-hub/" class="btn-back">← Back to Math Hub</a>
+
+        <header>
+            <h1>Formula Master 📋</h1>
+            <p class="subtitle">All Essential Class 12 Math Formulas | Quick Revision Repository</p>
+        </header>
+
+
+        <!-- CALCULUS -->
+        <h2 class="section-title" style="color: var(--calculus);">∫ Calculus Formulae</h2>
+
+        <!-- Derivatives -->
+        <div class="chapter-container calculus" onclick="toggleChapter(this)">
+            <div class="chapter-header">
+                <div class="chapter-title">
+                    <div class="icon-box">dx</div> Standard Derivatives
+                </div>
+                <div class="toggle-icon">▼</div>
+            </div>
+            <div class="chapter-content">
+                <div class="notes-grid">
+                    <div class="formula-card">
+                        <h3>Power Rule & Exponentials</h3>
+                        <div class="math-block">
+                            $$ \frac{d}{dx} (x^n) = n x^{n-1} $$
+                            $$ \frac{d}{dx} (e^x) = e^x $$
+                            $$ \frac{d}{dx} (a^x) = a^x \ln(a) $$
+                            $$ \frac{d}{dx} (\ln x) = \frac{1}{x} $$
+                        </div>
+                    </div>
+                    <div class="formula-card">
+                        <h3>Trigonometric Functions</h3>
+                        <div class="math-block">
+                            $$ \frac{d}{dx} (\sin x) = \cos x $$
+                            $$ \frac{d}{dx} (\cos x) = -\sin x $$
+                            $$ \frac{d}{dx} (\tan x) = \sec^2 x $$
+                            $$ \frac{d}{dx} (\sec x) = \sec x \tan x $$
+                        </div>
+                    </div>
+                    <div class="formula-card">
+                        <h3>Inverse Trigonometric</h3>
+                        <div class="math-block">
+                            $$ \frac{d}{dx} (\sin^{-1} x) = \frac{1}{\sqrt{1 - x^2}} $$
+                            $$ \frac{d}{dx} (\tan^{-1} x) = \frac{1}{1 + x^2} $$
+                            $$ \frac{d}{dx} (\sec^{-1} x) = \frac{1}{|x|\sqrt{x^2 - 1}} $$
+                        </div>
+                    </div>
+                    <div class="formula-card">
+                        <h3>Rules of Differentiation</h3>
+                        <div class="math-block" style="text-align: left;">
+                            <b>Product:</b> $$ (uv)' = u'v + uv' $$
+                            <b>Quotient:</b> $$ \left(\frac{u}{v}\right)' = \frac{u'v - uv'}{v^2} $$
+                            <b>Chain:</b> $$ \frac{dy}{dx} = \frac{dy}{du} \cdot \frac{du}{dx} $$
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Integrals -->
+        <div class="chapter-container calculus" onclick="toggleChapter(this)">
+            <div class="chapter-header">
+                <div class="chapter-title">
+                    <div class="icon-box">∫</div> Standard Integrals
+                </div>
+                <div class="toggle-icon">▼</div>
+            </div>
+            <div class="chapter-content">
+                <div class="notes-grid">
+                    <div class="formula-card">
+                        <h3>Basic Integrals</h3>
+                        <div class="math-block">
+                            $$ \int x^n \, dx = \frac{x^{n+1}}{n+1} + C \quad (n \neq -1)$$
+                            $$ \int \frac{1}{x} \, dx = \ln|x| + C $$
+                            $$ \int e^x \, dx = e^x + C $$
+                            $$ \int a^x \, dx = \frac{a^x}{\ln a} + C $$
+                        </div>
+                    </div>
+                    <div class="formula-card">
+                        <h3>Trigonometric Integrals</h3>
+                        <div class="math-block">
+                            $$ \int \sin x \, dx = -\cos x + C $$
+                            $$ \int \cos x \, dx = \sin x + C $$
+                            $$ \int \tan x \, dx = \ln|\sec x| + C $$
+                            $$ \int \sec^2 x \, dx = \tan x + C $$
+                        </div>
+                    </div>
+                    <div class="formula-card">
+                        <h3>Special Forms</h3>
+                        <div class="math-block">
+                            $$ \int \frac{dx}{x^2 + a^2} = \frac{1}{a} \tan^{-1}\left(\frac{x}{a}\right) + C $$
+                            $$ \int \frac{dx}{\sqrt{a^2 - x^2}} = \sin^{-1}\left(\frac{x}{a}\right) + C $$
+                            $$ \int e^x [f(x) + f'(x)] \, dx = e^x f(x) + C $$
+                        </div>
+                    </div>
+                    <div class="formula-card">
+                        <h3>Integration By Parts (ILATE)</h3>
+                        <div class="math-block">
+                            $$ \int u \, v \, dx = u \int v \, dx - \int \left( u' \int v \, dx \right) dx $$
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- ALGEBRA -->
+        <h2 class="section-title" style="color: var(--algebra);">📊 Algebra Formulae</h2>
+
+        <!-- Matrices & Determinants -->
+        <div class="chapter-container algebra" onclick="toggleChapter(this)">
+            <div class="chapter-header">
+                <div class="chapter-title">
+                    <div class="icon-box">M</div> Matrices & Determinants
+                </div>
+                <div class="toggle-icon">▼</div>
+            </div>
+            <div class="chapter-content">
+                <div class="notes-grid">
+                    <div class="formula-card">
+                        <h3>Determinant Properties</h3>
+                        <div class="math-block">
+                            $$ |AB| = |A||B| $$
+                            $$ |A^T| = |A| $$
+                            $$ |kA| = k^n |A| $$
+                            (where n is order of matrix)
+                        </div>
+                    </div>
+                    <div class="formula-card">
+                        <h3>Adjoint & Inverse</h3>
+                        <div class="math-block">
+                            $$ A^{-1} = \frac{1}{|A|} \text{adj}(A) $$
+                            $$ A \cdot \text{adj}(A) = |A|I $$
+                            $$ |\text{adj}(A)| = |A|^{n-1} $$
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- VECTORS AND 3D -->
+        <h2 class="section-title" style="color: var(--geometry);">🧊 Vectors & 3D Geometry</h2>
+
+        <div class="chapter-container geometry" onclick="toggleChapter(this)">
+            <div class="chapter-header">
+                <div class="chapter-title">
+                    <div class="icon-box">v</div> Vector Algebra
+                </div>
+                <div class="toggle-icon">▼</div>
+            </div>
+            <div class="chapter-content">
+                <div class="notes-grid">
+                    <div class="formula-card">
+                        <h3>Dot (Scalar) Product</h3>
+                        <div class="math-block">
+                            $$ \vec{a} \cdot \vec{b} = |\vec{a}| |\vec{b}| \cos\theta $$
+                            $$ \vec{a} \cdot \vec{b} = a_1b_1 + a_2b_2 + a_3b_3 $$
+                            If perpendicular: $$ \vec{a} \cdot \vec{b} = 0 $$
+                        </div>
+                    </div>
+                    <div class="formula-card">
+                        <h3>Cross (Vector) Product</h3>
+                        <div class="math-block">
+                            $$ |\vec{a} \times \vec{b}| = |\vec{a}| |\vec{b}| \sin\theta $$
+                            Area of triangle = $$ \frac{1}{2} |\vec{a} \times \vec{b}| $$
+                            Area of ||gm = $$ |\vec{a} \times \vec{b}| $$
+                        </div>
+                    </div>
+                    <div class="formula-card">
+                        <h3>Projection</h3>
+                        <div class="math-block">
+                            Projection of $\vec{a}$ on $\vec{b}$:
+                            $$ \frac{\vec{a} \cdot \vec{b}}{|\vec{b}|} $$
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="footer">
+            <p><strong>Math Formula Master</strong> - Made with 💕 by Pratik for Ishu's Board Exam</p>
+        </div>
     </div>
+
+    <script>
+        function toggleChapter(element) {
+            // Uncomment to allow only one open at a time
+            // document.querySelectorAll('.chapter-container').forEach(el => {
+            //     if (el !== element) el.classList.remove('active');
+            // });
+            element.classList.toggle('active');
+        }
+    </script>
 </body>
 
 </html>
