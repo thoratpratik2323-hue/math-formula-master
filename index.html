@@ -4,11 +4,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Math Formula Master | Target 100/100</title>
+    <title>Math Formula Master | 13 Chapters | Target 80/80</title>
     <link
         href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Poppins:wght@500;700&display=swap"
         rel="stylesheet">
-    <!-- MathJax for rendering math formulas beautifully -->
     <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <style>
@@ -19,15 +18,19 @@
             --card-bg: #1e293b;
             --border-light: rgba(255, 255, 255, 0.1);
 
-            /* Subject Colors */
-            --calculus: #06b6d4;
-            /* Cyan */
-            --algebra: #a78bfa;
-            /* Purple */
-            --geometry: #f472b6;
+            /* Unit Colors */
+            --rel: #ec4899;
             /* Pink */
-            --trigo: #f59e0b;
-            /* Amber */
+            --alg: #a78bfa;
+            /* Purple */
+            --calc: #06b6d4;
+            /* Cyan */
+            --vec: #f472b6;
+            /* Hot Pink/Geometry */
+            --lpp: #4ade80;
+            /* Green */
+            --prob: #fb923c;
+            /* Orange */
 
             --glow-spread: 0 0 20px rgba(0, 0, 0, 0.5);
         }
@@ -44,7 +47,7 @@
             color: var(--text-main);
             background-image:
                 radial-gradient(circle at top right, rgba(6, 182, 212, 0.1), transparent 40%),
-                radial-gradient(circle at bottom left, rgba(244, 114, 182, 0.1), transparent 40%);
+                radial-gradient(circle at bottom left, rgba(236, 72, 153, 0.1), transparent 40%);
             background-attachment: fixed;
             line-height: 1.6;
             overflow-x: hidden;
@@ -114,7 +117,6 @@
             letter-spacing: 1px;
         }
 
-        /* Section Headings */
         .section-title {
             margin: 3rem 0 1.5rem;
             font-family: 'Poppins', sans-serif;
@@ -123,6 +125,8 @@
             display: flex;
             align-items: center;
             gap: 0.8rem;
+            border-bottom: 2px solid rgba(255, 255, 255, 0.05);
+            padding-bottom: 0.5rem;
         }
 
         /* Accordion Structure */
@@ -148,7 +152,7 @@
             align-items: center;
             justify-content: space-between;
             font-family: 'Poppins', sans-serif;
-            font-size: 1.3rem;
+            font-size: 1.2rem;
             font-weight: 600;
             background: rgba(255, 255, 255, 0.03);
             user-select: none;
@@ -160,41 +164,53 @@
             gap: 1rem;
         }
 
-        .icon-box {
+        .chap-num {
             display: flex;
             align-items: center;
             justify-content: center;
-            width: 40px;
-            height: 40px;
-            border-radius: 10px;
-            font-size: 1.2rem;
-            color: white;
+            min-width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            font-size: 1rem;
+            font-weight: 800;
             background: rgba(255, 255, 255, 0.1);
+            color: white;
         }
 
-        .trigo .icon-box {
-            background: var(--trigo);
-            box-shadow: 0 0 15px rgba(245, 158, 11, 0.5);
+        .rel .chap-num {
+            background: var(--rel);
+            box-shadow: 0 0 15px rgba(236, 72, 153, 0.5);
         }
 
-        .calculus .icon-box {
-            background: var(--calculus);
-            box-shadow: 0 0 15px rgba(6, 182, 212, 0.5);
-        }
-
-        .algebra .icon-box {
-            background: var(--algebra);
+        .alg .chap-num {
+            background: var(--alg);
             box-shadow: 0 0 15px rgba(167, 139, 250, 0.5);
         }
 
-        .geometry .icon-box {
-            background: var(--geometry);
+        .calc .chap-num {
+            background: var(--calc);
+            box-shadow: 0 0 15px rgba(6, 182, 212, 0.5);
+        }
+
+        .vec .chap-num {
+            background: var(--vec);
             box-shadow: 0 0 15px rgba(244, 114, 182, 0.5);
         }
 
+        .lpp .chap-num {
+            background: var(--lpp);
+            box-shadow: 0 0 15px rgba(74, 222, 128, 0.5);
+        }
+
+        .prob .chap-num {
+            background: var(--prob);
+            box-shadow: 0 0 15px rgba(251, 146, 60, 0.5);
+        }
+
         .toggle-icon {
-            font-size: 1.5rem;
+            font-size: 1.2rem;
             transition: transform 0.3s;
+            color: var(--text-muted);
         }
 
         .chapter-container.active .toggle-icon {
@@ -204,12 +220,12 @@
         .chapter-content {
             max-height: 0;
             overflow: hidden;
-            transition: max-height 0.5s cubic-bezier(0, 1, 0, 1);
+            transition: max-height 0.8s cubic-bezier(0, 1, 0, 1);
             background: rgba(0, 0, 0, 0.2);
         }
 
         .chapter-container.active .chapter-content {
-            max-height: 5000px;
+            max-height: 10000px;
             transition: max-height 1.5s ease-in-out;
         }
 
@@ -221,7 +237,7 @@
         }
 
         .formula-card {
-            background: rgba(255, 255, 255, 0.03);
+            background: rgba(255, 255, 255, 0.02);
             border-left: 4px solid var(--text-muted);
             padding: 1.5rem;
             border-radius: 0 12px 12px 0;
@@ -230,20 +246,28 @@
             gap: 1rem;
         }
 
-        .trigo .formula-card {
-            border-left-color: var(--trigo);
+        .rel .formula-card {
+            border-left-color: var(--rel);
         }
 
-        .calculus .formula-card {
-            border-left-color: var(--calculus);
+        .alg .formula-card {
+            border-left-color: var(--alg);
         }
 
-        .algebra .formula-card {
-            border-left-color: var(--algebra);
+        .calc .formula-card {
+            border-left-color: var(--calc);
         }
 
-        .geometry .formula-card {
-            border-left-color: var(--geometry);
+        .vec .formula-card {
+            border-left-color: var(--vec);
+        }
+
+        .lpp .formula-card {
+            border-left-color: var(--lpp);
+        }
+
+        .prob .formula-card {
+            border-left-color: var(--prob);
         }
 
         .formula-card h3 {
@@ -251,8 +275,18 @@
             font-size: 1.1rem;
             font-weight: 600;
             margin-bottom: 0.5rem;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
             padding-bottom: 0.5rem;
+        }
+
+        .formula-card p,
+        .formula-card ul {
+            font-size: 0.95rem;
+            color: #cbd5e1;
+        }
+
+        .formula-card ul {
+            padding-left: 1.2rem;
         }
 
         .math-block {
@@ -263,11 +297,12 @@
             overflow-x: auto;
             border: 1px solid rgba(255, 255, 255, 0.05);
             color: #f8fafc;
+            margin-top: 0.5rem;
+            text-align: center;
         }
 
-        /* Customize scrollbar for math blocks */
         .math-block::-webkit-scrollbar {
-            height: 6px;
+            height: 5px;
         }
 
         .math-block::-webkit-scrollbar-thumb {
@@ -311,177 +346,414 @@
         <a href="https://thoratpratik2323-hue.github.io/ishu-math-hub/" class="btn-back">← Back to Math Hub</a>
 
         <header>
-            <h1>Formula Master 📋</h1>
-            <p class="subtitle">All Essential Class 12 Math Formulas | Quick Revision Repository</p>
+            <h1>Complete Formula Master 🚀</h1>
+            <p class="subtitle">All 13 Chapters of Class 12 CBSE Math | Target 80/80 For Ishu</p>
         </header>
 
+        <!-- ================= UNIT 1: RELATIONS & FUNCTIONS ================= -->
+        <h2 class="section-title" style="color: var(--rel);">🔗 Unit 1: Relations & Functions</h2>
 
-        <!-- CALCULUS -->
-        <h2 class="section-title" style="color: var(--calculus);">∫ Calculus Formulae</h2>
-
-        <!-- Derivatives -->
-        <div class="chapter-container calculus" onclick="toggleChapter(this)">
+        <!-- CH 1 -->
+        <div class="chapter-container rel" onclick="toggleChapter(this)">
             <div class="chapter-header">
                 <div class="chapter-title">
-                    <div class="icon-box">dx</div> Standard Derivatives
+                    <div class="chap-num">1</div> Relations & Functions
                 </div>
                 <div class="toggle-icon">▼</div>
             </div>
             <div class="chapter-content">
                 <div class="notes-grid">
                     <div class="formula-card">
-                        <h3>Power Rule & Exponentials</h3>
-                        <div class="math-block">
-                            $$ \frac{d}{dx} (x^n) = n x^{n-1} $$
-                            $$ \frac{d}{dx} (e^x) = e^x $$
-                            $$ \frac{d}{dx} (a^x) = a^x \ln(a) $$
-                            $$ \frac{d}{dx} (\ln x) = \frac{1}{x} $$
+                        <h3>Types of Relations</h3>
+                        <p>On a non-empty set A:</p>
+                        <ul>
+                            <li><span class="highlight">Reflexive:</span> $(a, a) \in R$ for every $a \in A$</li>
+                            <li><span class="highlight">Symmetric:</span> If $(a, b) \in R$, then $(b, a) \in R$</li>
+                            <li><span class="highlight">Transitive:</span> If $(a, b) \in R$ and $(b, c) \in R$, then
+                                $(a, c) \in R$</li>
+                        </ul>
+                        <p><i>If all three hold, it is an <b>Equivalence Relation</b>.</i></p>
+                    </div>
+                    <div class="formula-card">
+                        <h3>Types of Functions</h3>
+                        <ul>
+                            <li><span class="highlight">One-One (Injective):</span> $f(x_1) = f(x_2) \implies x_1 = x_2$
+                            </li>
+                            <li><span class="highlight">Onto (Surjective):</span> For every $y \in Y$, there exists $x
+                                \in X$ such that $f(x) = y$. (Range = Codomain)</li>
+                            <li><span class="highlight">Bijective:</span> Both One-One and Onto.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- CH 2 -->
+        <div class="chapter-container rel" onclick="toggleChapter(this)">
+            <div class="chapter-header">
+                <div class="chapter-title">
+                    <div class="chap-num">2</div> Inverse Trigonometric Functions
+                </div>
+                <div class="toggle-icon">▼</div>
+            </div>
+            <div class="chapter-content">
+                <div class="notes-grid">
+                    <div class="formula-card">
+                        <h3>Principal Value Branches</h3>
+                        <div class="math-block" style="text-align: left; font-size:1rem;">
+                            $\sin^{-1} x : [-\frac{\pi}{2}, \frac{\pi}{2}]$<br>
+                            $\cos^{-1} x : [0, \pi]$<br>
+                            $\tan^{-1} x : (-\frac{\pi}{2}, \frac{\pi}{2})$
                         </div>
                     </div>
                     <div class="formula-card">
-                        <h3>Trigonometric Functions</h3>
+                        <h3>Negative Angles Properties</h3>
                         <div class="math-block">
-                            $$ \frac{d}{dx} (\sin x) = \cos x $$
-                            $$ \frac{d}{dx} (\cos x) = -\sin x $$
-                            $$ \frac{d}{dx} (\tan x) = \sec^2 x $$
-                            $$ \frac{d}{dx} (\sec x) = \sec x \tan x $$
+                            $$ \sin^{-1}(-x) = -\sin^{-1} x $$
+                            $$ \tan^{-1}(-x) = -\tan^{-1} x $$
+                            $$ \cos^{-1}(-x) = \pi - \cos^{-1} x $$
+                            $$ \sec^{-1}(-x) = \pi - \sec^{-1} x $$
                         </div>
                     </div>
                     <div class="formula-card">
-                        <h3>Inverse Trigonometric</h3>
+                        <h3>Complementary Properties</h3>
                         <div class="math-block">
-                            $$ \frac{d}{dx} (\sin^{-1} x) = \frac{1}{\sqrt{1 - x^2}} $$
-                            $$ \frac{d}{dx} (\tan^{-1} x) = \frac{1}{1 + x^2} $$
-                            $$ \frac{d}{dx} (\sec^{-1} x) = \frac{1}{|x|\sqrt{x^2 - 1}} $$
+                            $$ \sin^{-1} x + \cos^{-1} x = \frac{\pi}{2} $$
+                            $$ \tan^{-1} x + \cot^{-1} x = \frac{\pi}{2} $$
+                            $$ \text{cosec}^{-1} x + \sec^{-1} x = \frac{\pi}{2} $$
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- ================= UNIT 2: ALGEBRA ================= -->
+        <h2 class="section-title" style="color: var(--alg);">📊 Unit 2: Algebra</h2>
+
+        <!-- CH 3 -->
+        <div class="chapter-container alg" onclick="toggleChapter(this)">
+            <div class="chapter-header">
+                <div class="chapter-title">
+                    <div class="chap-num">3</div> Matrices
+                </div>
+                <div class="toggle-icon">▼</div>
+            </div>
+            <div class="chapter-content">
+                <div class="notes-grid">
+                    <div class="formula-card">
+                        <h3>Transpose Properties</h3>
+                        <div class="math-block">
+                            $$ (A^T)^T = A $$
+                            $$ (A+B)^T = A^T + B^T $$
+                            $$ (kA)^T = kA^T $$
+                            $$ (AB)^T = B^T A^T \text{ (Reversal Law)} $$
+                        </div>
+                    </div>
+                    <div class="formula-card">
+                        <h3>Symmetric & Skew-Symmetric</h3>
+                        <ul>
+                            <li><span class="highlight">Symmetric:</span> $A^T = A$</li>
+                            <li><span class="highlight">Skew-Symmetric:</span> $A^T = -A$ (Diagonal elements be 0)</li>
+                            <li>Any square matrix can be expressed as:</li>
+                        </ul>
+                        <div class="math-block">
+                            $$ A = \frac{1}{2}(A + A^T) + \frac{1}{2}(A - A^T) $$
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- CH 4 -->
+        <div class="chapter-container alg" onclick="toggleChapter(this)">
+            <div class="chapter-header">
+                <div class="chapter-title">
+                    <div class="chap-num">4</div> Determinants
+                </div>
+                <div class="toggle-icon">▼</div>
+            </div>
+            <div class="chapter-content">
+                <div class="notes-grid">
+                    <div class="formula-card">
+                        <h3>Adjoint & Inverse Properties</h3>
+                        <p>For a square matrix $A$ of order $n$:</p>
+                        <div class="math-block">
+                            $$ A(\text{adj } A) = (\text{adj } A)A = |A|I $$
+                            $$ |\text{adj } A| = |A|^{n-1} $$
+                            $$ A^{-1} = \frac{1}{|A|} (\text{adj } A) \quad \text{if } |A| \neq 0 $$
+                            $$ (AB)^{-1} = B^{-1} A^{-1} $$
+                        </div>
+                    </div>
+                    <div class="formula-card">
+                        <h3>Area of Triangle using Determinants</h3>
+                        <p>Vertices $(x_1, y_1), (x_2, y_2), (x_3, y_3)$</p>
+                        <div class="math-block">
+                            $$ \Delta = \frac{1}{2} \begin{vmatrix} x_1 & y_1 & 1 \\ x_2 & y_2 & 1 \\ x_3 & y_3 & 1
+                            \end{vmatrix} $$
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- ================= UNIT 3: CALCULUS ================= -->
+        <h2 class="section-title" style="color: var(--calc);">∫ Unit 3: Calculus (Super Important!)</h2>
+
+        <!-- CH 5 -->
+        <div class="chapter-container calc" onclick="toggleChapter(this)">
+            <div class="chapter-header">
+                <div class="chapter-title">
+                    <div class="chap-num">5</div> Continuity & Differentiability
+                </div>
+                <div class="toggle-icon">▼</div>
+            </div>
+            <div class="chapter-content">
+                <div class="notes-grid">
+                    <div class="formula-card">
+                        <h3>Continuity Condition</h3>
+                        <p>A function $f(x)$ is continuous at $x=c$ if:</p>
+                        <div class="math-block">
+                            $$ \lim_{x \to c^-} f(x) = \lim_{x \to c^+} f(x) = f(c) $$
+                        </div>
+                    </div>
+                    <div class="formula-card">
+                        <h3>Basic Derivatives</h3>
+                        <div class="math-block">
+                            $$ (x^n)' = n x^{n-1} $$
+                            $$ (e^x)' = e^x, \quad (a^x)' = a^x \ln a $$
+                            $$ (\log_e x)' = \frac{1}{x} $$
+                        </div>
+                    </div>
+                    <div class="formula-card">
+                        <h3>Trigonometric Derivatives</h3>
+                        <div class="math-block">
+                            $$ (\sin x)' = \cos x $$
+                            $$ (\cos x)' = -\sin x $$
+                            $$ (\tan x)' = \sec^2 x $$
+                            $$ (\sin^{-1} x)' = \frac{1}{\sqrt{1-x^2}} $$
+                            $$ (\tan^{-1} x)' = \frac{1}{1+x^2} $$
                         </div>
                     </div>
                     <div class="formula-card">
                         <h3>Rules of Differentiation</h3>
-                        <div class="math-block" style="text-align: left;">
-                            <b>Product:</b> $$ (uv)' = u'v + uv' $$
-                            <b>Quotient:</b> $$ \left(\frac{u}{v}\right)' = \frac{u'v - uv'}{v^2} $$
-                            <b>Chain:</b> $$ \frac{dy}{dx} = \frac{dy}{du} \cdot \frac{du}{dx} $$
+                        <div class="math-block">
+                            Product: $$ (uv)' = u'v + uv' $$
+                            Quotient: $$ \left(\frac{u}{v}\right)' = \frac{u'v - uv'}{v^2} $$
+                            Chain: $$ \frac{dy}{dx} = \frac{dy}{dt} \times \frac{dt}{dx} $$
                         </div>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- Integrals -->
-        <div class="chapter-container calculus" onclick="toggleChapter(this)">
+        <!-- CH 6 -->
+        <div class="chapter-container calc" onclick="toggleChapter(this)">
             <div class="chapter-header">
                 <div class="chapter-title">
-                    <div class="icon-box">∫</div> Standard Integrals
+                    <div class="chap-num">6</div> Application of Derivatives
                 </div>
                 <div class="toggle-icon">▼</div>
             </div>
             <div class="chapter-content">
                 <div class="notes-grid">
                     <div class="formula-card">
-                        <h3>Basic Integrals</h3>
+                        <h3>Increasing / Decreasing</h3>
+                        <p>For function $f(x)$ on an interval:</p>
+                        <ul>
+                            <li><span class="highlight">Strictly Increasing:</span> $f'(x) > 0$</li>
+                            <li><span class="highlight">Strictly Decreasing:</span> $f'(x) < 0$</li>
+                        </ul>
+                    </div>
+                    <div class="formula-card">
+                        <h3>Maxima and Minima (2nd Derivative Test)</h3>
+                        <p>Find critical points: $f'(c) = 0$</p>
+                        <ul>
+                            <li>If $f''(c) < 0 \implies$ Local Maxima</li>
+                            <li>If $f''(c) > 0 \implies$ Local Minima</li>
+                            <li>If $f''(c) = 0$, test fails (use 1st derivative test).</li>
+                        </ul>
+                    </div>
+                    <div class="formula-card">
+                        <h3>Rate of Measure</h3>
+                        <p>Rate of change of $y$ with respect to time $t$ is denoted by $\frac{dy}{dt}$.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- CH 7 -->
+        <div class="chapter-container calc" onclick="toggleChapter(this)">
+            <div class="chapter-header">
+                <div class="chapter-title">
+                    <div class="chap-num">7</div> Integrals
+                </div>
+                <div class="toggle-icon">▼</div>
+            </div>
+            <div class="chapter-content">
+                <div class="notes-grid">
+                    <div class="formula-card">
+                        <h3>Standard Integrals</h3>
                         <div class="math-block">
-                            $$ \int x^n \, dx = \frac{x^{n+1}}{n+1} + C \quad (n \neq -1)$$
-                            $$ \int \frac{1}{x} \, dx = \ln|x| + C $$
+                            $$ \int x^n \, dx = \frac{x^{n+1}}{n+1} + C $$
+                            $$ \int \frac{1}{x} \, dx = \ln |x| + C $$
                             $$ \int e^x \, dx = e^x + C $$
-                            $$ \int a^x \, dx = \frac{a^x}{\ln a} + C $$
                         </div>
                     </div>
                     <div class="formula-card">
-                        <h3>Trigonometric Integrals</h3>
-                        <div class="math-block">
-                            $$ \int \sin x \, dx = -\cos x + C $$
-                            $$ \int \cos x \, dx = \sin x + C $$
-                            $$ \int \tan x \, dx = \ln|\sec x| + C $$
-                            $$ \int \sec^2 x \, dx = \tan x + C $$
-                        </div>
-                    </div>
-                    <div class="formula-card">
-                        <h3>Special Forms</h3>
-                        <div class="math-block">
-                            $$ \int \frac{dx}{x^2 + a^2} = \frac{1}{a} \tan^{-1}\left(\frac{x}{a}\right) + C $$
-                            $$ \int \frac{dx}{\sqrt{a^2 - x^2}} = \sin^{-1}\left(\frac{x}{a}\right) + C $$
+                        <h3>Some Special Integrals</h3>
+                        <div class="math-block" style="text-align: left; font-size:1rem;">
+                            $$ \int \frac{dx}{x^2 + a^2} = \frac{1}{a} \tan^{-1}\frac{x}{a} $$
+                            $$ \int \frac{dx}{x^2 - a^2} = \frac{1}{2a} \ln\left| \frac{x-a}{x+a} \right| $$
+                            $$ \int \frac{dx}{\sqrt{a^2 - x^2}} = \sin^{-1}\frac{x}{a} $$
                             $$ \int e^x [f(x) + f'(x)] \, dx = e^x f(x) + C $$
                         </div>
                     </div>
                     <div class="formula-card">
-                        <h3>Integration By Parts (ILATE)</h3>
+                        <h3>Integration by Parts (ILATE Rule)</h3>
                         <div class="math-block">
                             $$ \int u \, v \, dx = u \int v \, dx - \int \left( u' \int v \, dx \right) dx $$
                         </div>
                     </div>
-                </div>
-            </div>
-        </div>
-
-
-        <!-- ALGEBRA -->
-        <h2 class="section-title" style="color: var(--algebra);">📊 Algebra Formulae</h2>
-
-        <!-- Matrices & Determinants -->
-        <div class="chapter-container algebra" onclick="toggleChapter(this)">
-            <div class="chapter-header">
-                <div class="chapter-title">
-                    <div class="icon-box">M</div> Matrices & Determinants
-                </div>
-                <div class="toggle-icon">▼</div>
-            </div>
-            <div class="chapter-content">
-                <div class="notes-grid">
                     <div class="formula-card">
-                        <h3>Determinant Properties</h3>
+                        <h3>King's Rule (Definite Integrals)</h3>
+                        <p>The Most Important Property:</p>
                         <div class="math-block">
-                            $$ |AB| = |A||B| $$
-                            $$ |A^T| = |A| $$
-                            $$ |kA| = k^n |A| $$
-                            (where n is order of matrix)
-                        </div>
-                    </div>
-                    <div class="formula-card">
-                        <h3>Adjoint & Inverse</h3>
-                        <div class="math-block">
-                            $$ A^{-1} = \frac{1}{|A|} \text{adj}(A) $$
-                            $$ A \cdot \text{adj}(A) = |A|I $$
-                            $$ |\text{adj}(A)| = |A|^{n-1} $$
+                            $$ \int_0^a f(x) \, dx = \int_0^a f(a-x) \, dx $$
+                            $$ \int_a^b f(x) \, dx = \int_a^b f(a+b-x) \, dx $$
                         </div>
                     </div>
                 </div>
             </div>
         </div>
 
-
-        <!-- VECTORS AND 3D -->
-        <h2 class="section-title" style="color: var(--geometry);">🧊 Vectors & 3D Geometry</h2>
-
-        <div class="chapter-container geometry" onclick="toggleChapter(this)">
+        <!-- CH 8 -->
+        <div class="chapter-container calc" onclick="toggleChapter(this)">
             <div class="chapter-header">
                 <div class="chapter-title">
-                    <div class="icon-box">v</div> Vector Algebra
+                    <div class="chap-num">8</div> Application of Integrals
                 </div>
                 <div class="toggle-icon">▼</div>
             </div>
             <div class="chapter-content">
                 <div class="notes-grid">
                     <div class="formula-card">
-                        <h3>Dot (Scalar) Product</h3>
+                        <h3>Area Under Simple Curve</h3>
+                        <ul>
+                            <li><span class="highlight">With x-axis:</span> $A = \int_a^b y \, dx = \int_a^b f(x) \, dx$
+                            </li>
+                            <li><span class="highlight">With y-axis:</span> $A = \int_c^d x \, dy = \int_c^d f(y) \, dy$
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- CH 9 -->
+        <div class="chapter-container calc" onclick="toggleChapter(this)">
+            <div class="chapter-header">
+                <div class="chapter-title">
+                    <div class="chap-num">9</div> Differential Equations
+                </div>
+                <div class="toggle-icon">▼</div>
+            </div>
+            <div class="chapter-content">
+                <div class="notes-grid">
+                    <div class="formula-card">
+                        <h3>Order & Degree</h3>
+                        <p><span class="highlight">Order:</span> Highest order derivative present.</p>
+                        <p><span class="highlight">Degree:</span> Power of the highest order derivative (polynomial DE
+                            required).</p>
+                    </div>
+                    <div class="formula-card">
+                        <h3>Homogeneous DE</h3>
+                        <p>Substitute $y = vx \implies \frac{dy}{dx} = v + x\frac{dv}{dx}$ and separate variables.</p>
+                    </div>
+                    <div class="formula-card">
+                        <h3>Linear Differential Equation (LDE)</h3>
+                        <p>Form: $\frac{dy}{dx} + Py = Q$</p>
+                        <div class="math-block">
+                            $$ \text{I.F.} = e^{\int P \, dx} $$
+                            Solution: $$ y \times (\text{I.F.}) = \int [Q \times (\text{I.F.})] dx + C $$
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ================= UNIT 4: VECTORS & 3D ================= -->
+        <h2 class="section-title" style="color: var(--vec);">🧭 Unit 4: Vectors & 3D Geometry</h2>
+
+        <!-- CH 10 -->
+        <div class="chapter-container vec" onclick="toggleChapter(this)">
+            <div class="chapter-header">
+                <div class="chapter-title">
+                    <div class="chap-num">10</div> Vector Algebra
+                </div>
+                <div class="toggle-icon">▼</div>
+            </div>
+            <div class="chapter-content">
+                <div class="notes-grid">
+                    <div class="formula-card">
+                        <h3>Magnitude & Unit Vector</h3>
+                        <div class="math-block">
+                            For $\vec{a} = x\hat{i} + y\hat{j} + z\hat{k}$
+                            $$ |\vec{a}| = \sqrt{x^2 + y^2 + z^2} $$
+                            $$ \hat{a} = \frac{\vec{a}}{|\vec{a}|} $$
+                        </div>
+                    </div>
+                    <div class="formula-card">
+                        <h3>Dot Product (Scalar)</h3>
                         <div class="math-block">
                             $$ \vec{a} \cdot \vec{b} = |\vec{a}| |\vec{b}| \cos\theta $$
-                            $$ \vec{a} \cdot \vec{b} = a_1b_1 + a_2b_2 + a_3b_3 $$
-                            If perpendicular: $$ \vec{a} \cdot \vec{b} = 0 $$
+                            If $\vec{a} \perp \vec{b}$, then $\vec{a} \cdot \vec{b} = 0$
                         </div>
                     </div>
                     <div class="formula-card">
-                        <h3>Cross (Vector) Product</h3>
+                        <h3>Cross Product (Vector)</h3>
                         <div class="math-block">
                             $$ |\vec{a} \times \vec{b}| = |\vec{a}| |\vec{b}| \sin\theta $$
-                            Area of triangle = $$ \frac{1}{2} |\vec{a} \times \vec{b}| $$
-                            Area of ||gm = $$ |\vec{a} \times \vec{b}| $$
+                            Area of ||gm = $|\vec{a} \times \vec{b}|$
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- CH 11 -->
+        <div class="chapter-container vec" onclick="toggleChapter(this)">
+            <div class="chapter-header">
+                <div class="chapter-title">
+                    <div class="chap-num">11</div> Three Dimensional Geometry
+                </div>
+                <div class="toggle-icon">▼</div>
+            </div>
+            <div class="chapter-content">
+                <div class="notes-grid">
+                    <div class="formula-card">
+                        <h3>Direction Cosines</h3>
+                        <div class="math-block">
+                            $$ l = \cos\alpha, \quad m = \cos\beta, \quad n = \cos\gamma $$
+                            $$ l^2 + m^2 + n^2 = 1 $$
                         </div>
                     </div>
                     <div class="formula-card">
-                        <h3>Projection</h3>
+                        <h3>Equation of Line</h3>
+                        <p>Passing through point $\vec{a}$ and parallel to vector $\vec{b}$:</p>
                         <div class="math-block">
-                            Projection of $\vec{a}$ on $\vec{b}$:
-                            $$ \frac{\vec{a} \cdot \vec{b}}{|\vec{b}|} $$
+                            Vector: $$ \vec{r} = \vec{a} + \lambda \vec{b} $$
+                            Cartesian: $$ \frac{x-x_1}{a} = \frac{y-y_1}{b} = \frac{z-z_1}{c} $$
+                        </div>
+                    </div>
+                    <div class="formula-card">
+                        <h3>Shortest Distance between Skew Lines</h3>
+                        <p>Lines: $\vec{r} = \vec{a_1} + \lambda \vec{b_1}$ and $\vec{r} = \vec{a_2} + \mu \vec{b_2}$
+                        </p>
+                        <div class="math-block">
+                            $$ d = \left| \frac{(\vec{b_1} \times \vec{b_2}) \cdot (\vec{a_2} - \vec{a_1})}{|\vec{b_1}
+                            \times \vec{b_2}|} \right| $$
                         </div>
                     </div>
                 </div>
@@ -489,14 +761,88 @@
         </div>
 
 
+        <!-- ================= UNIT 5 & 6 ================= -->
+        <h2 class="section-title" style="color: var(--lpp);">📈 Unit 5: Linear Programming</h2>
+
+        <!-- CH 12 -->
+        <div class="chapter-container lpp" onclick="toggleChapter(this)">
+            <div class="chapter-header">
+                <div class="chapter-title">
+                    <div class="chap-num">12</div> Linear Programming
+                </div>
+                <div class="toggle-icon">▼</div>
+            </div>
+            <div class="chapter-content">
+                <div class="notes-grid">
+                    <div class="formula-card">
+                        <h3>Key Definitions</h3>
+                        <ul>
+                            <li><span class="highlight">Objective Function:</span> $Z = ax + by$ (to be maximized or
+                                minimized).</li>
+                            <li><span class="highlight">Constraints:</span> The linear inequalities like $x+y \le 5$, $x
+                                \ge 0, y \ge 0$.</li>
+                            <li><span class="highlight">Feasible Region:</span> The common region determined by all
+                                constraints.</li>
+                            <li><span class="highlight">Corner Point Method:</span> Optimum value of Z must occur at one
+                                of the corner vertices of the feasible region.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <h2 class="section-title" style="color: var(--prob);">🎲 Unit 6: Probability</h2>
+
+        <!-- CH 13 -->
+        <div class="chapter-container prob" onclick="toggleChapter(this)">
+            <div class="chapter-header">
+                <div class="chapter-title">
+                    <div class="chap-num">13</div> Probability
+                </div>
+                <div class="toggle-icon">▼</div>
+            </div>
+            <div class="chapter-content">
+                <div class="notes-grid">
+                    <div class="formula-card">
+                        <h3>Conditional Probability</h3>
+                        <div class="math-block">
+                            $$ P(A|B) = \frac{P(A \cap B)}{P(B)} \quad (P(B) \neq 0) $$
+                        </div>
+                    </div>
+                    <div class="formula-card">
+                        <h3>Multiplication Theorem & Independence</h3>
+                        <p><span class="highlight">Multiplication:</span> $P(A \cap B) = P(A) \cdot P(B|A)$</p>
+                        <p><span class="highlight">Independent Events:</span> $P(A \cap B) = P(A) \cdot P(B)$</p>
+                    </div>
+                    <div class="formula-card">
+                        <h3>Bayes' Theorem</h3>
+                        <div class="math-block">
+                            $$ P(E_i|A) = \frac{P(E_i)P(A|E_i)}{\sum_{j} P(E_j)P(A|E_j)} $$
+                        </div>
+                        <p>Use when finding probability of a <i>"cause" given the "result"</i> has occurred.</p>
+                    </div>
+                    <div class="formula-card">
+                        <h3>Probability Distribution</h3>
+                        <div class="math-block">
+                            Mean $E(X) = \sum x_i p_i $
+                            <br><br>
+                            Variance = $\sum x_i^2 p_i - (E(X))^2 $
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <div class="footer">
-            <p><strong>Math Formula Master</strong> - Made with 💕 by Pratik for Ishu's Board Exam</p>
+            <p><strong>Perfect 13 Chapter Formula Setup</strong> - Built for Ishu's Board Exam 2026 💕</p>
+            <p style="margin-top:0.5rem; font-size:1.1rem; color: #f472b6;">80/80 Target Locked 🎯</p>
         </div>
     </div>
 
     <script>
         function toggleChapter(element) {
-            // Uncomment to allow only one open at a time
+            // Optional: Close others 
             // document.querySelectorAll('.chapter-container').forEach(el => {
             //     if (el !== element) el.classList.remove('active');
             // });
